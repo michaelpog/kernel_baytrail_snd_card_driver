@@ -143,27 +143,29 @@ static struct snd_soc_ops byt_be_ssp2_ops = {
 
 static struct snd_soc_dai_link byt_dailink[] = {
 	[MERR_DPCM_AUDIO] = {
-		.name = "Baytrail Audio Port",
-		.stream_name = "Baytrail Audio",
+		.name = "Audio Port",
+		.stream_name = "Audio",
 		.cpu_dai_name = "media-cpu-dai",
 		.codec_dai_name = "snd-soc-dummy-dai",
 		.codec_name = "snd-soc-dummy",
 		.platform_name = "sst-mfld-platform",
 		.ignore_suspend = 1,
+		.nonatomic = true,
 		.dynamic = 1,
 		.dpcm_playback = 1,
 		.dpcm_capture = 1,
 		.ops = &byt_aif1_ops,
 	},
 	[MERR_DPCM_COMPR] = {
-		.name = "Baytrail Compressed Port",
-		.stream_name = "Baytrail Compress",
+		.name = "Compressed Port",
+		.stream_name = "Compress",
 		.cpu_dai_name = "compress-cpu-dai",
 		.codec_dai_name = "snd-soc-dummy-dai",
 		.codec_name = "snd-soc-dummy",
 		.platform_name = "sst-mfld-platform",
 	},
-		/* back ends */
+	/* CODEC<->CODEC link */
+	/* back ends */
 	{
 		.name = "SSP2-Codec",
 		.be_id = 1,
@@ -176,6 +178,7 @@ static struct snd_soc_dai_link byt_dailink[] = {
 						| SND_SOC_DAIFMT_CBS_CFS,
 		.be_hw_params_fixup = byt_codec_fixup,
 		.ignore_suspend = 1,
+		.nonatomic = true,
 		.dpcm_playback = 1,
 		.dpcm_capture = 1,
 		.ops = &byt_be_ssp2_ops,
