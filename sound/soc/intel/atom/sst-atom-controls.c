@@ -892,17 +892,17 @@ int sst_fill_ssp_config(struct snd_soc_dai *dai, unsigned int fmt)
 static const struct sst_ssp_config sst_ssp_configs = {
 	.ssp_id = SSP_CODEC,
 	.bits_per_slot = 24,
-	.slots = 4,
+	.slots = 2,
 	.ssp_mode = SSP_MODE_MASTER,
-	.pcm_mode = SSP_PCM_MODE_NETWORK,
+	.pcm_mode = SSP_PCM_MODE_NORMAL,
 	.duplex = SSP_DUPLEX,
-	.ssp_protocol = SSP_MODE_PCM,
-	.fs_width = 1,
+	.ssp_protocol = SSP_MODE_I2S,
+	.fs_width = 24,
 	.fs_frequency = SSP_FS_48_KHZ,
-	.active_slot_map = 0xF,
-	.start_delay = 0,
+	.active_slot_map = 0x3,
+	.start_delay = 1,
 	.frame_sync_polarity = SSP_FS_ACTIVE_HIGH,
-	.data_polarity = 1,
+	.data_polarity = 0,
 };
 
 void sst_fill_ssp_defaults(struct snd_soc_dai *dai)
