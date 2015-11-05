@@ -345,6 +345,9 @@ static int sst_acpi_remove(struct platform_device *pdev)
 static struct sst_machines sst_acpi_bytcr[] = {
 	{"10EC5640", "bytcr", "bytcr_rt5640", NULL, "intel/fw_sst_0f28.bin",
 						&byt_rvp_platform_data },
+	{"10EC5651", "bytcr", "bytcr_rt5651", NULL, "intel/fw_sst_0f28.bin",
+						&byt_rvp_platform_data },
+
 	{},
 };
 
