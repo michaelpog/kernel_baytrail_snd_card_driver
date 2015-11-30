@@ -1,0 +1,19 @@
+# arch	version		flavour		installedname			suffix	bdep
+amd64	4.3.0-040300	generic		4.3.0-040300-generic		-	-
+
+i386	4.3.0-040300	generic		4.3.0-040300-generic		-	-
+
+armhf	4.3.0-040300	generic		4.3.0-040300-generic		-	-
+armhf	4.3.0-040300	generic-lpae	4.3.0-040300-generic-lpae	-	-
+
+arm64	4.3.0-040300	generic		4.3.0-040300-generic		-	-
+
+ppc64el	4.3.0-040300	generic		4.3.0-040300-generic		-	-
+
+s390x	4.3.0-040300	generic		4.3.0-040300-generic		-	-
+
+# Ports
+# arch	version		flavour		installedname			suffix	bdep
+powerpc	4.3.0-040300	powerpc-smp	4.3.0-040300-powerpc-smp	-	-
+powerpc	4.3.0-040300	powerpc64-smp	4.3.0-040300-powerpc64-smp	-	-
+powerpc 4.3.0-040300	powerpc-e500mc	4.3.0-040300-powerpc-e500mc	-	-

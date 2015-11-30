@@ -255,30 +255,38 @@ static int sst_acpi_probe(struct platform_device *pdev)
 	struct platform_device *mdev;
 	struct platform_device *plat_dev;
 	unsigned int dev_id;
-
+	pr_info("sst_acpi_probe\n");
 	id = acpi_match_device(dev->driver->acpi_match_table, dev);
 	if (!id)
+	{
+		pr_info("acpi_match_device return id null\n");
 		return -ENODEV;
+	}
+		
 	dev_dbg(dev, "for %s", id->id);
-
+	pr_info("for %s\n",id->id);
 	mach = (struct sst_machines *)id->driver_data;
 	mach = sst_acpi_find_machine(mach);
 	if (mach == NULL) {
 		dev_err(dev, "No matching machine driver found\n");
+		pr_info("No matching machine driver found\n");
 		return -ENODEV;
 	}
 
 	ret = kstrtouint(id->id, 16, &dev_id);
 	if (ret < 0) {
 		dev_err(dev, "Unique device id conversion error: %d\n", ret);
+		pr_info("Unique device id conversion error: %d\n", ret);
 		return ret;
 	}
 
 	dev_dbg(dev, "ACPI device id: %x\n", dev_id);
+	pr_info("ACPI device id: %x\n", dev_id);
 
 	plat_dev = platform_device_register_data(dev, mach->pdata->platform, -1, NULL, 0);
 	if (IS_ERR(plat_dev)) {
 		dev_err(dev, "Failed to create machine device: %s\n", mach->pdata->platform);
+		pr_info("Failed to create machine device: %s\n", mach->pdata->platform);
 		return PTR_ERR(plat_dev);
 	}
 
@@ -286,12 +294,17 @@ static int sst_acpi_probe(struct platform_device *pdev)
 	mdev = platform_device_register_data(dev, mach->machine, -1, NULL, 0);
 	if (IS_ERR(mdev)) {
 		dev_err(dev, "Failed to create machine device: %s\n", mach->machine);
+		pr_info("Failed to create machine device: %s\n", mach->machine);
 		return PTR_ERR(mdev);
 	}
 
 	ret = sst_alloc_drv_context(&ctx, dev, dev_id);
 	if (ret < 0)
+	{
+		pr_info("sst_alloc_drv_context returned negative err %d\n",ret);
 		return ret;
+	}
+		
 
 	/* Fill sst platform data */
 	ctx->pdata = mach->pdata;
@@ -299,16 +312,25 @@ static int sst_acpi_probe(struct platform_device *pdev)
 
 	ret = sst_platform_get_resources(ctx);
 	if (ret)
+	{
+		pr_info("sst_platform_get_resources returned positive\n");
 		return ret;
+	}
+		
 
 	ret = sst_context_init(ctx);
 	if (ret < 0)
+	{
+		pr_info("sst_context_init returned positive\n");
 		return ret;
+	}
+		
 
 	/* need to save shim registers in BYT */
 	ctx->shim_regs64 = devm_kzalloc(ctx->dev, sizeof(*ctx->shim_regs64),
 					GFP_KERNEL);
 	if (!ctx->shim_regs64) {
+		pr_info("ctx->shim_regs64 is null\n");
 		ret = -ENOMEM;
 		goto do_sst_cleanup;
 	}
@@ -343,8 +365,13 @@ static int sst_acpi_remove(struct platform_device *pdev)
 }
 
 static struct sst_machines sst_acpi_bytcr[] = {
-	{"10EC5640", "T100", "bytt100_rt5640", NULL, "intel/fw_sst_0f28.bin",
+	{"10EC5640", "bytcr", "bytcr_rt5640", NULL, "intel/fw_sst_0f28.bin",
 						&byt_rvp_platform_data },
+	//{"10EC5651", "bytcr", "bytcr_rt5651", NULL, "intel/fw_sst_0f28.bin",
+		//				&byt_rvp_platform_data },
+	{"10EC5651", "bytcr", "bytcr_adsp21479", NULL, "intel/fw_sst_0f28.bin",
+						&byt_rvp_platform_data },
+
 	{},
 };
 

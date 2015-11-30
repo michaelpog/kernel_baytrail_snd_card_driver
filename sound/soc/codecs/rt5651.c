@@ -18,6 +18,7 @@
 #include <linux/regmap.h>
 #include <linux/platform_device.h>
 #include <linux/spi/spi.h>
+#include <linux/acpi.h>
 #include <sound/core.h>
 #include <sound/pcm.h>
 #include <sound/pcm_params.h>
@@ -1741,6 +1742,22 @@ static const struct i2c_device_id rt5651_i2c_id[] = {
 };
 MODULE_DEVICE_TABLE(i2c, rt5651_i2c_id);
 
+#if defined(CONFIG_OF)
+static const struct of_device_id rt5651_of_match[] = {
+	{ .compatible = "realtek,rt5651", },
+	{},
+};
+MODULE_DEVICE_TABLE(of, rt5651_of_match);
+#endif
+
+#ifdef CONFIG_ACPI
+static const struct acpi_device_id rt5651_acpi_match[] = {
+	{ "10EC5651", 0 },
+	{ },
+};
+MODULE_DEVICE_TABLE(acpi, rt5651_acpi_match);
+#endif
+
 static int rt5651_i2c_probe(struct i2c_client *i2c,
 		    const struct i2c_device_id *id)
 {
@@ -1751,18 +1768,27 @@ static int rt5651_i2c_probe(struct i2c_client *i2c,
 	rt5651 = devm_kzalloc(&i2c->dev, sizeof(*rt5651),
 				GFP_KERNEL);
 	if (NULL == rt5651)
+	{
+		pr_info("rt5651 is null\n");
 		return -ENOMEM;
+	}
+		
 
 	i2c_set_clientdata(i2c, rt5651);
 
 	if (pdata)
+	{
+		pr_info("pdata is not null\n");
 		rt5651->pdata = *pdata;
+	}
+		
 
 	rt5651->regmap = devm_regmap_init_i2c(i2c, &rt5651_regmap);
 	if (IS_ERR(rt5651->regmap)) {
 		ret = PTR_ERR(rt5651->regmap);
 		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
 			ret);
+			pr_err("Failed to allocate register map\n");
 		return ret;
 	}
 
@@ -1770,6 +1796,7 @@ static int rt5651_i2c_probe(struct i2c_client *i2c,
 	if (ret != RT5651_DEVICE_ID_VALUE) {
 		dev_err(&i2c->dev,
 			"Device with ID register %#x is not rt5651\n", ret);
+		pr_err("Device with ID register %#x is not rt5651\n", ret);
 		return -ENODEV;
 	}
 
@@ -1778,21 +1805,33 @@ static int rt5651_i2c_probe(struct i2c_client *i2c,
 	ret = regmap_register_patch(rt5651->regmap, init_list,
 				    ARRAY_SIZE(init_list));
 	if (ret != 0)
+	{
 		dev_warn(&i2c->dev, "Failed to apply regmap patch: %d\n", ret);
+		pr_err("Failed to apply regmap patch: %d\n", ret);
+	}
+		
 
 	if (rt5651->pdata.in2_diff)
+	{
 		regmap_update_bits(rt5651->regmap, RT5651_IN1_IN2,
 					RT5651_IN_DF2, RT5651_IN_DF2);
+	   pr_info("rt5651->pdata.in2_diff\n");
+	}
+		
 
 	if (rt5651->pdata.dmic_en)
+	{
 		regmap_update_bits(rt5651->regmap, RT5651_GPIO_CTRL1,
 				RT5651_GP2_PIN_MASK, RT5651_GP2_PIN_DMIC1_SCL);
+		pr_info("rt5651->pdata.dmic_en\n");		
+	}
+		
 
 	rt5651->hp_mute = 1;
 
 	ret = snd_soc_register_codec(&i2c->dev, &soc_codec_dev_rt5651,
 				rt5651_dai, ARRAY_SIZE(rt5651_dai));
-
+	pr_info("snd soc register codec\n");	
 	return ret;
 }
 
@@ -1806,6 +1845,8 @@ static int rt5651_i2c_remove(struct i2c_client *i2c)
 static struct i2c_driver rt5651_i2c_driver = {
 	.driver = {
 		.name = "rt5651",
+		.acpi_match_table = ACPI_PTR(rt5651_acpi_match),
+		.of_match_table = of_match_ptr(rt5651_of_match),
 	},
 	.probe = rt5651_i2c_probe,
 	.remove   = rt5651_i2c_remove,

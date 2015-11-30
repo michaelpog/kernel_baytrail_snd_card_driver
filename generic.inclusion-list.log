@@ -1,0 +1,142 @@
+find: `arch/*/kernel': No such file or directory
+find: `arch/*/oprofile': No such file or directory
+find: `drivers/hv/*': No such file or directory
+find: `drivers/md/*': No such file or directory
+find: `drivers/message/fusion*': No such file or directory
+find: `drivers/net/ppp/*': No such file or directory
+find: `drivers/net/slip/*': No such file or directory
+find: `drivers/net/xen-netback/*': No such file or directory
+find: `drivers/net/ethernet/dec/tulip/*': No such file or directory
+find: `drivers/scsi/libsas/*': No such file or directory
+find: `drivers/target/target_core*.ko': No such file or directory
+find: `drivers/vhost/*': No such file or directory
+find: `fs/9p/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/arch/x86/kvm/kvm-amd.ko
+find: `fs/ceph/*': No such file or directory
+find: `fs/fat/*': No such file or directory
+find: `fs/isofs/*': No such file or directory
+find: `fs/cifs/*': No such file or directory
+find: `fs/xfs/*': No such file or directory
+find: `fs/ufs/*': No such file or directory
+find: `fs/squashfs/*': No such file or directory
+find: `fs/overlayfs/*': No such file or directory
+find: `fs/udf/*': No such file or directory
+find: `net/6lowpan/*': No such file or directory
+find: `net/8021q/*': No such file or directory
+find: `net/9p/*': No such file or directory
+find: `net/appletalk/*': No such file or directory
+find: `net/atm/*': No such file or directory
+find: `net/ax25/*': No such file or directory
+find: `net/can/*': No such file or directory
+find: `net/core/*': No such file or directory
+find: `net/dccp/*': No such file or directory
+find: `net/decnet/*': No such file or directory
+find: `net/ieee802154/*': No such file or directory
+find: `net/ipx/*': No such file or directory
+find: `net/irda/*': No such file or directory
+find: `net/key/*': No such file or directory
+find: `net/lapb/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/char/ipmi/ipmi_msghandler.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/ata/ahci.ko
+find: `net/netrom/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/ata/libahci.ko
+find: `net/openvswitch/*': No such file or directory
+find: `net/phonet/*': No such file or directory
+find: `net/rose/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/block/nbd.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/block/floppy.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/block/cryptoloop.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/block/nvme.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/block/rbd.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/char/hangcheck-timer.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/char/hw_random/virtio-rng.ko
+find: `net/rxrpc/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/char/nvram.ko
+find: `net/sched/*': No such file or directory
+find: `net/sctp/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/char/raw.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/firmware/iscsi_ibft.ko
+find: `net/tipc/*': No such file or directory
+find: `net/vmw_vsock/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/hid/hid-hyperv.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/ib_core.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/ib_addr.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/ib_cm.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/ib_mad.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/ib_sa.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/iw_cm.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/infiniband/core/rdma_cm.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/input/evbug.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/input/gameport/gameport.ko
+find: `net/x25/*': No such file or directory
+find: `net/xfrm/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/input/serio/hyperv-keyboard.ko
+find: `zfs/*': No such file or directory
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/input/serio/serport.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/input/touchscreen/usbtouchscreen.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/input/misc/xen-kbdfront.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/scsi_transport_spi.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/misc/vmw_balloon.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/caif/caif_virtio.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/mii.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/8390/8390.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/realtek/8139too.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/realtek/8139cp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/appletalk/ipddp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/bonding/bonding.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ppp/bsd_comp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/dummy.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/intel/e1000/e1000.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/eql.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ifb.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/intel/igbvf/igbvf.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/intel/ixgbevf/ixgbevf.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/geneve.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/macvlan.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/macvtap.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/8390/ne2k-pci.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/netconsole.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/ethernet/amd/pcnet32.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/hyperv/hv_netvsc.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/veth.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/vmxnet3/vmxnet3.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/net/vxlan.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/pps/pps_core.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/ptp/ptp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/BusLogic.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/scsi_dh.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/iscsi_boot_sysfs.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/iscsi_tcp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/libiscsi.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/libiscsi_tcp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/osd/osd.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/osd/libosd.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/qla1280.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/raid_class.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/scsi_transport_fc.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/scsi_transport_iscsi.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/scsi_transport_sas.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/vmw_pvscsi.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/hv_storvsc.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/scsi/virtio_scsi.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/uio/uio.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/cirrusfb.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/core/syscopyarea.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/core/sysfillrect.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/core/sysimgblt.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/hyperv_fb.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/vga16fb.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/vgastate.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/xen-fbfront.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/video/fbdev/core/fb_sys_fops.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/drivers/watchdog/softdog.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/fs/cachefiles/cachefiles.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/fs/dlm/dlm.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/fs/exofs/libore.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/net/ceph/libceph.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/sound/pci/snd-ens1370.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/sound/drivers/pcsp/snd-pcsp.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/ubuntu/vbox/vboxguest/vboxguest.ko
+Warning: Could not find /home/michael/ubuntu-linux/debian/linux-image-extra-4.3.0-040300-generic/lib/modules/4.3.0-040300-generic/kernel/ubuntu/vbox/vboxsf/vboxsf.ko
