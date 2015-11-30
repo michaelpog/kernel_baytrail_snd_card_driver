@@ -88,6 +88,18 @@ config SND_SOC_INTEL_BYTCR_RT5640_MACH
           platforms with RT5640 audio codec.
           Say Y if you have such a device
           If unsure select "N".
+          
+config SND_SOC_INTEL_BYTCR_ADSP21479_MACH
+		tristate "ASoC Audio driver for Intel Baytrail ADSP21479-EZ Board sound card, with dummy codec" 
+		depends on X86 && I2C
+		select SND_SOC_RT5651
+		select SND_SST_MFLD_PLATFORM
+		select SND_SST_IPC_ACPI 
+		help
+         	This adds support for ASoC machine driver for Intel(R) Baytrail and Baytrail-CR
+          	platforms with ADSP21479 EZ-BOARD sound card.
+          	Say Y if you have such a device
+          	If unsure select "N".       
 
 config SND_SOC_INTEL_BYTCR_RT5651_MACH
         tristate "ASoC Audio driver for Intel Baytrail and Baytrail-CR with RT5651 codec"

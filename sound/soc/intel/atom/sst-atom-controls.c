@@ -27,12 +27,14 @@
 #include <sound/tlv.h>
 #include "sst-mfld-platform.h"
 #include "sst-atom-controls.h"
+#define TAG "adsp21479 sst-atom-controls" 
 
 static int sst_fill_byte_control(struct sst_data *drv,
 					 u8 ipc_msg, u8 block,
 					 u8 task_id, u8 pipe_id,
 					 u16 len, void *cmd_data)
 {
+	//pro_info("%s sst_fill_byte_control\n\n",TAG);
 	struct snd_sst_bytes_v2 *byte_data = drv->byte_stream;
 
 	byte_data->type = SST_CMD_BYTES_SET;
@@ -56,6 +58,7 @@ static int sst_fill_and_send_cmd_unlocked(struct sst_data *drv,
 				 u8 ipc_msg, u8 block, u8 task_id, u8 pipe_id,
 				 void *cmd_data, u16 len)
 {
+	//pro_info("%s sst_fill_and_send_cmd_unlocked\n",TAG);
 	int ret = 0;
 
 	ret = sst_fill_byte_control(drv, ipc_msg,
@@ -74,6 +77,7 @@ static int sst_fill_and_send_cmd(struct sst_data *drv,
 				 u8 ipc_msg, u8 block, u8 task_id, u8 pipe_id,
 				 void *cmd_data, u16 len)
 {
+	//pro_info("%s sst_fill_and_send_cmd\n",TAG);
 	int ret;
 
 	mutex_lock(&drv->lock);
@@ -113,7 +117,7 @@ static u8 sst_ssp_rx_map[SST_MAX_TDM_SLOTS] = {
 static int sst_send_slot_map(struct sst_data *drv)
 {
 	struct sst_param_sba_ssp_slot_map cmd;
-
+	//pro_info("%s sst_fill_and_send_cmd\n",TAG);
 	SST_FILL_DEFAULT_DESTINATION(cmd.header.dst);
 	cmd.header.command_id = SBA_SET_SSP_SLOT_MAP;
 	cmd.header.length = sizeof(struct sst_param_sba_ssp_slot_map)
@@ -135,6 +139,7 @@ static int sst_send_slot_map(struct sst_data *drv)
 static int sst_slot_enum_info(struct snd_kcontrol *kcontrol,
 		       struct snd_ctl_elem_info *uinfo)
 {
+	//pro_info("%s sst_slot_enum_info\n",TAG);
 	struct sst_enum *e = (struct sst_enum *)kcontrol->private_value;
 
 	uinfo->type = SNDRV_CTL_ELEM_TYPE_ENUMERATED;
@@ -159,6 +164,7 @@ static int sst_slot_enum_info(struct snd_kcontrol *kcontrol,
 static int sst_slot_get(struct snd_kcontrol *kcontrol,
 			struct snd_ctl_elem_value *ucontrol)
 {
+	//pro_info("%s sst_slot_get\n",TAG);
 	struct sst_enum *e = (void *)kcontrol->private_value;
 	struct snd_soc_component *c = snd_kcontrol_chip(kcontrol);
 	struct sst_data *drv = snd_soc_component_get_drvdata(c);
@@ -190,6 +196,7 @@ static int sst_slot_get(struct snd_kcontrol *kcontrol,
  */
 static int sst_check_and_send_slot_map(struct sst_data *drv, struct snd_kcontrol *kcontrol)
 {
+	//pro_info("%s sst_check_and_send_slot_map\n",TAG);
 	struct sst_enum *e = (void *)kcontrol->private_value;
 	int ret = 0;
 
@@ -217,6 +224,7 @@ static int sst_check_and_send_slot_map(struct sst_data *drv, struct snd_kcontrol
 static int sst_slot_put(struct snd_kcontrol *kcontrol,
 			struct snd_ctl_elem_value *ucontrol)
 {
+	//pro_info("%s sst_slot_put\n",TAG);
 	struct snd_soc_component *c = snd_soc_kcontrol_component(kcontrol);
 	struct sst_data *drv = snd_soc_component_get_drvdata(c);
 	struct sst_enum *e = (void *)kcontrol->private_value;
@@ -264,6 +272,7 @@ static int sst_slot_put(struct snd_kcontrol *kcontrol,
 static int sst_send_algo_cmd(struct sst_data *drv,
 			      struct sst_algo_control *bc)
 {
+	//pro_info("%s sst_send_algo_cmd\n",TAG);
 	int len, ret = 0;
 	struct sst_cmd_set_params *cmd;
 
@@ -294,6 +303,7 @@ static int sst_send_algo_cmd(struct sst_data *drv,
 static int sst_find_and_send_pipe_algo(struct sst_data *drv,
 					const char *pipe, struct sst_ids *ids)
 {
+	//pro_info("%s sst_find_and_send_pipe_algo\n",TAG);
 	int ret = 0;
 	struct sst_algo_control *bc;
 	struct sst_module *algo = NULL;
@@ -315,6 +325,7 @@ static int sst_find_and_send_pipe_algo(struct sst_data *drv,
 static int sst_algo_bytes_ctl_info(struct snd_kcontrol *kcontrol,
 			    struct snd_ctl_elem_info *uinfo)
 {
+	//pro_info("%s sst_algo_bytes_ctl_info\n",TAG);
 	struct sst_algo_control *bc = (void *)kcontrol->private_value;
 
 	uinfo->type = SNDRV_CTL_ELEM_TYPE_BYTES;
@@ -326,6 +337,7 @@ static int sst_algo_bytes_ctl_info(struct snd_kcontrol *kcontrol,
 static int sst_algo_control_get(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_value *ucontrol)
 {
+	//pro_info("%s sst_algo_control_get\n",TAG);
 	struct sst_algo_control *bc = (void *)kcontrol->private_value;
 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
 
@@ -345,6 +357,7 @@ static int sst_algo_control_get(struct snd_kcontrol *kcontrol,
 static int sst_algo_control_set(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_value *ucontrol)
 {
+	//pro_info("%s sst_algo_control_set\n",TAG);
 	int ret = 0;
 	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
 	struct sst_data *drv = snd_soc_component_get_drvdata(cmpnt);
@@ -373,6 +386,7 @@ static int sst_algo_control_set(struct snd_kcontrol *kcontrol,
 static int sst_gain_ctl_info(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_info *uinfo)
 {
+	//pro_info("%s sst_gain_ctl_info\n",TAG);
 	struct sst_gain_mixer_control *mc = (void *)kcontrol->private_value;
 
 	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
@@ -400,6 +414,7 @@ static int sst_gain_ctl_info(struct snd_kcontrol *kcontrol,
 static int sst_send_gain_cmd(struct sst_data *drv, struct sst_gain_value *gv,
 			      u16 task_id, u16 loc_id, u16 module_id, int mute)
 {
+	//pro_info("%s sst_send_gain_cmd\n",TAG);
 	struct sst_cmd_set_gain_dual cmd;
 
 	dev_dbg(&drv->pdev->dev, "Enter\n");
@@ -432,6 +447,7 @@ static int sst_send_gain_cmd(struct sst_data *drv, struct sst_gain_value *gv,
 static int sst_gain_get(struct snd_kcontrol *kcontrol,
 			struct snd_ctl_elem_value *ucontrol)
 {
+	//pro_info("%s sst_gain_get\n",TAG);
 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
 	struct sst_gain_mixer_control *mc = (void *)kcontrol->private_value;
 	struct sst_gain_value *gv = mc->gain_val;
@@ -462,6 +478,7 @@ static int sst_gain_get(struct snd_kcontrol *kcontrol,
 static int sst_gain_put(struct snd_kcontrol *kcontrol,
 			struct snd_ctl_elem_value *ucontrol)
 {
+	//pro_info("%s sst_gain_put\n",TAG);
 	int ret = 0;
 	struct snd_soc_component *cmpnt = snd_soc_kcontrol_component(kcontrol);
 	struct sst_data *drv = snd_soc_component_get_drvdata(cmpnt);
@@ -510,6 +527,7 @@ static int sst_set_pipe_gain(struct sst_ids *ids,
 static int sst_send_pipe_module_params(struct snd_soc_dapm_widget *w,
 		struct snd_kcontrol *kcontrol)
 {
+	//pro_info("%s sst_set_pipe_gain\n",TAG);
 	struct snd_soc_component *c = snd_soc_dapm_to_component(w->dapm);
 	struct sst_data *drv = snd_soc_component_get_drvdata(c);
 	struct sst_ids *ids = w->priv;
@@ -525,6 +543,7 @@ static int sst_send_pipe_module_params(struct snd_soc_dapm_widget *w,
 static int sst_generic_modules_event(struct snd_soc_dapm_widget *w,
 				     struct snd_kcontrol *k, int event)
 {
+	//pro_info("%s sst_generic_modules_event\n",TAG);
 	if (SND_SOC_DAPM_EVENT_ON(event))
 		return sst_send_pipe_module_params(w, k);
 	return 0;
@@ -558,7 +577,7 @@ static int fill_swm_input(struct snd_soc_component *cmpnt,
 {
 	uint i, is_set, nb_inputs = 0;
 	u16 input_loc_id;
-
+	//pro_info("%s fill_swm_input\n",TAG);
 	dev_dbg(cmpnt->dev, "reg: %#x\n", reg);
 	for (i = 0; i < SST_SWM_INPUT_COUNT; i++) {
 		is_set = reg & BIT(i);
@@ -588,6 +607,7 @@ static int fill_swm_input(struct snd_soc_component *cmpnt,
 static int sst_set_pipe_gain(struct sst_ids *ids,
 			struct sst_data *drv, int mute)
 {
+	//pro_info("%s sst_set_pipe_gain\n",TAG);
 	int ret = 0;
 	struct sst_gain_mixer_control *mc;
 	struct sst_gain_value *gv;
@@ -611,6 +631,8 @@ static int sst_set_pipe_gain(struct sst_ids *ids,
 static int sst_swm_mixer_event(struct snd_soc_dapm_widget *w,
 			struct snd_kcontrol *k, int event)
 {
+
+	//pro_info("%s sst_swm_mixer_event\n",TAG);
 	struct sst_cmd_set_swm cmd;
 	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
 	struct sst_data *drv = snd_soc_component_get_drvdata(cmpnt);

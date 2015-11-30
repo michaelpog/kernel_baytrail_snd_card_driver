@@ -31,11 +31,14 @@
 #include "sst-mfld-platform.h"
 #include "sst-atom-controls.h"
 
+#define  TAG "adsp21479 sst-mfld-platform-pcm"
+
 struct sst_device *sst;
 static DEFINE_MUTEX(sst_lock);
 
 int sst_register_dsp(struct sst_device *dev)
 {
+	//pr_info("%s- sst_register_dsp\n",TAG);
 	if (WARN_ON(!dev))
 		return -EINVAL;
 	if (!try_module_get(dev->dev->driver->owner))
@@ -56,6 +59,7 @@ EXPORT_SYMBOL_GPL(sst_register_dsp);
 
 int sst_unregister_dsp(struct sst_device *dev)
 {
+	//pr_info("%s- sst_unregister_dsp\n",TAG);
 	if (WARN_ON(!dev))
 		return -EINVAL;
 	if (dev != sst)
@@ -94,6 +98,7 @@ static struct snd_pcm_hardware sst_platform_pcm_hw = {
 };
 
 static struct sst_dev_stream_map dpcm_strm_map[] = {
+	//device ID, substream, direction,fw id,task id,status
 	{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}, /* Reserved, not in use */
 	{MERR_DPCM_AUDIO, 0, SNDRV_PCM_STREAM_PLAYBACK, PIPE_MEDIA1_IN,
 	 SST_TASK_ID_MEDIA, 0},
@@ -107,7 +112,7 @@ static struct sst_dev_stream_map dpcm_strm_map[] = {
 
 static int sst_media_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
 {
-
+	//pr_info("%s- sst_media_digital_mute %d, dai name :%s stream %d\n",TAG,mute,dai->name,stream);
 	return sst_send_pipe_gains(dai, stream, mute);
 }
 
@@ -115,6 +120,7 @@ static int sst_media_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
 void sst_set_stream_status(struct sst_runtime_stream *stream,
 					int state)
 {
+	//pr_info("%s- sst_set_stream_status, state :%d\n",TAG,state);
 	unsigned long flags;
 	spin_lock_irqsave(&stream->status_lock, flags);
 	stream->stream_status = state;
@@ -124,17 +130,18 @@ void sst_set_stream_status(struct sst_runtime_stream *stream,
 static inline int sst_get_stream_status(struct sst_runtime_stream *stream)
 {
 	int state;
-	unsigned long flags;
-
+	unsigned long flags;	
 	spin_lock_irqsave(&stream->status_lock, flags);
 	state = stream->stream_status;
 	spin_unlock_irqrestore(&stream->status_lock, flags);
+	//pr_info("%s- sst_get_stream_status, state :%d\n",TAG,state);
 	return state;
 }
 
 static void sst_fill_alloc_params(struct snd_pcm_substream *substream,
 				struct snd_sst_alloc_params_ext *alloc_param)
 {
+	//pr_info_once("%s- sst_fill_alloc_params \n",TAG);
 	unsigned int channels;
 	snd_pcm_uframes_t period_size;
 	ssize_t periodbytes;
@@ -157,7 +164,7 @@ static void sst_fill_pcm_params(struct snd_pcm_substream *substream,
 	param->uc.pcm_params.num_chan = (u8) substream->runtime->channels;
 	param->uc.pcm_params.pcm_wd_sz = substream->runtime->sample_bits;
 	param->uc.pcm_params.sfreq = substream->runtime->rate;
-
+	//pr_info_once("%s- sst_fill_pcm_params \n",TAG);
 	/* PCM stream via ALSA interface */
 	param->uc.pcm_params.use_offload_path = 0;
 	param->uc.pcm_params.reserved2 = 0;
@@ -169,7 +176,7 @@ static int sst_get_stream_mapping(int dev, int sdev, int dir,
 	struct sst_dev_stream_map *map, int size)
 {
 	int i;
-
+	//pr_info("%s- sst_get_stream_mapping dev:%d,sdev:%d,dir:%d,size:%d \n",TAG,dev,sdev,dir,size);
 	if (map == NULL)
 		return -EINVAL;
 
@@ -177,8 +184,13 @@ static int sst_get_stream_mapping(int dev, int sdev, int dir,
 	/* index 0 is not used in stream map */
 	for (i = 1; i < size; i++) {
 		if ((map[i].dev_num == dev) && (map[i].direction == dir))
+		{
+			//pr_info("%s- sst_get_stream_mapping i:%d dev:%d, dir:%d \n",i,TAG,dev,dir);
 			return i;
+		}
+			
 	}
+	//pr_info("%s- sst_get_stream_mapping didn't find anything\n",TAG,dev,dir);
 	return 0;
 }
 
@@ -190,7 +202,7 @@ int sst_fill_stream_params(void *substream,
 	struct sst_dev_stream_map *map;
 	struct snd_pcm_substream *pstream = NULL;
 	struct snd_compr_stream *cstream = NULL;
-
+	//pr_info("%s- sst_fill_stream_params \n",TAG);
 	map = ctx->pdata->pdev_strm_map;
 	map_size = ctx->pdata->strm_map_size;
 
@@ -203,6 +215,7 @@ int sst_fill_stream_params(void *substream,
 
 	/* For pcm streams */
 	if (pstream) {
+		//pr_info("%s- sst_fill_stream_params  pstream\n",TAG);
 		index = sst_get_stream_mapping(pstream->pcm->device,
 					  pstream->number, pstream->stream,
 					  map, map_size);
@@ -217,6 +230,7 @@ int sst_fill_stream_params(void *substream,
 	}
 
 	if (cstream) {
+		//pr_info("%s- sst_fill_stream_params  cstream\n",TAG);
 		index = sst_get_stream_mapping(cstream->device->device,
 					       0, cstream->direction,
 					       map, map_size);
@@ -234,6 +248,10 @@ int sst_fill_stream_params(void *substream,
 static int sst_platform_alloc_stream(struct snd_pcm_substream *substream,
 		struct snd_soc_dai *dai)
 {
+	//pr_info("%s- sst_platform_alloc_stream snd_pcm_substream name %s,snd_soc_dai name : %s id %d\n",TAG
+		,substream->name
+		,dai->name
+		,dai->id);
 	struct sst_runtime_stream *stream =
 			substream->runtime->private_data;
 	struct snd_sst_stream_params param = {{{0,},},};
@@ -270,7 +288,7 @@ static void sst_period_elapsed(void *arg)
 	struct snd_pcm_substream *substream = arg;
 	struct sst_runtime_stream *stream;
 	int status;
-
+	//pr_info("%s- sst_period_elapsed\n",TAG); 
 	if (!substream || !substream->runtime)
 		return;
 	stream = substream->runtime->private_data;
@@ -288,7 +306,7 @@ static int sst_platform_init_stream(struct snd_pcm_substream *substream)
 			substream->runtime->private_data;
 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 	int ret_val;
-
+	//pr_info("%s- sst_platform_init_stream snd_pcm_substream name %s\n",TAG,substream->name); 
 	dev_dbg(rtd->dev, "setting buffer ptr param\n");
 	sst_set_stream_status(stream, SST_PLATFORM_INIT);
 	stream->stream_info.period_elapsed = sst_period_elapsed;
@@ -304,11 +322,13 @@ static int sst_platform_init_stream(struct snd_pcm_substream *substream)
 
 static int power_up_sst(struct sst_runtime_stream *stream)
 {
+	//pr_info("%s- power_up_sst \n",TAG); 
 	return stream->ops->power(sst->dev, true);
 }
 
 static void power_down_sst(struct sst_runtime_stream *stream)
 {
+	//pr_info("%s- power_down_sst \n",TAG);
 	stream->ops->power(sst->dev, false);
 }
 
@@ -318,7 +338,7 @@ static int sst_media_open(struct snd_pcm_substream *substream,
 	int ret_val = 0;
 	struct snd_pcm_runtime *runtime = substream->runtime;
 	struct sst_runtime_stream *stream;
-
+	//pr_info("%s- sst_media_open  substream name %s,snd_soc_dai name %s\n",TAG,substream->name, dai->name);
 	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
 	if (!stream)
 		return -ENOMEM;
@@ -362,7 +382,7 @@ static void sst_media_close(struct snd_pcm_substream *substream,
 {
 	struct sst_runtime_stream *stream;
 	int ret_val = 0, str_id;
-
+	//pr_info("%s- sst_media_close substream name %s,snd_soc_dai name %s\n",TAG,substream->name, dai->name);
 	stream = substream->runtime->private_data;
 	power_down_sst(stream);
 
@@ -384,7 +404,7 @@ static inline unsigned int get_current_pipe_id(struct snd_soc_dai *dai,
 	unsigned int pipe_id;
 
 	pipe_id = map[str_id].device_id;
-
+	//pr_info("%s- get_current_pipe_id substream name %s,snd_soc_dai name %s\n",TAG,substream->name, dai->name);
 	dev_dbg(dai->dev, "got pipe_id = %#x for str_id = %d\n",
 			pipe_id, str_id);
 	return pipe_id;
@@ -395,7 +415,7 @@ static int sst_media_prepare(struct snd_pcm_substream *substream,
 {
 	struct sst_runtime_stream *stream;
 	int ret_val = 0, str_id;
-
+	//pr_info("%s- sst_media_prepare substream name %s,snd_soc_dai name %s\n",TAG,substream->name, dai->name);
 	stream = substream->runtime->private_data;
 	str_id = stream->stream_info.str_id;
 	if (stream->stream_info.str_id) {
@@ -422,12 +442,14 @@ static int sst_media_hw_params(struct snd_pcm_substream *substream,
 {
 	snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(params));
 	memset(substream->runtime->dma_area, 0, params_buffer_bytes(params));
+	//pr_info("%s- sst_media_hw_params substream name %s,snd_soc_dai name %s\n",TAG,substream->name, dai->name);
 	return 0;
 }
 
 static int sst_media_hw_free(struct snd_pcm_substream *substream,
 		struct snd_soc_dai *dai)
 {
+	//pr_info("%s- sst_media_hw_free substream name %s,snd_soc_dai name %s\n",TAG,substream->name, dai->name);
 	return snd_pcm_lib_free_pages(substream);
 }
 
@@ -435,7 +457,7 @@ static int sst_enable_ssp(struct snd_pcm_substream *substream,
 			struct snd_soc_dai *dai)
 {
 	int ret = 0;
-
+	//pr_info("%s- sst_enable_ssp substream name %s,snd_soc_dai name %s\n dai->active %d",TAG,substream->name, dai->name,dai->active);
 	if (!dai->active) {
 		ret = sst_handle_vb_timer(dai, true);
 		sst_fill_ssp_defaults(dai);
@@ -448,7 +470,7 @@ static int sst_be_hw_params(struct snd_pcm_substream *substream,
 				struct snd_soc_dai *dai)
 {
 	int ret = 0;
-
+	//pr_info("%s- sst_be_hw_params substream name %s,snd_soc_dai name %s dai->active %d\n",TAG,substream->name, dai->name,dai->active );
 	if (dai->active == 1)
 		ret = send_ssp_cmd(dai, dai->name, 1);
 	return ret;
@@ -457,7 +479,7 @@ static int sst_be_hw_params(struct snd_pcm_substream *substream,
 static int sst_set_format(struct snd_soc_dai *dai, unsigned int fmt)
 {
 	int ret = 0;
-
+	//pr_info("%s- sst_set_format ,snd_soc_dai name %s dai->active %d\n",TAG, dai->name,dai->active );
 	if (!dai->active)
 		return 0;
 
@@ -472,7 +494,7 @@ static int sst_platform_set_ssp_slot(struct snd_soc_dai *dai,
 			unsigned int tx_mask, unsigned int rx_mask,
 			int slots, int slot_width) {
 	int ret = 0;
-
+	//pr_info("%s- sst_platform_set_ssp_slot ,snd_soc_dai name %s, slots %d,slots width %d \n",TAG, dai->name,slots,slot_width );
 	if (!dai->active)
 		return ret;
 
@@ -486,6 +508,7 @@ static int sst_platform_set_ssp_slot(struct snd_soc_dai *dai,
 static void sst_disable_ssp(struct snd_pcm_substream *substream,
 			struct snd_soc_dai *dai)
 {
+	//pr_info("%s- sst_disable_ssp ,snd_soc_dai name %s dai->active %d\n",TAG, dai->name,dai->active );
 	if (!dai->active) {
 		send_ssp_cmd(dai, dai->name, 0);
 		sst_handle_vb_timer(dai, false);
@@ -522,14 +545,14 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
 		.channels_min = SST_STEREO,
 		.channels_max = SST_STEREO,
 		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE ,
 	},
 	.capture = {
 		.stream_name = "Headset Capture",
 		.channels_min = 1,
 		.channels_max = 2,
 		.rates = SNDRV_PCM_RATE_44100|SNDRV_PCM_RATE_48000,
-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE ,
 	},
 },
 {
@@ -611,7 +634,7 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
 static int sst_platform_open(struct snd_pcm_substream *substream)
 {
 	struct snd_pcm_runtime *runtime;
-
+	//pr_info("%s- sst_platform_open ,snd_pcm_substream name %s\n",TAG, substream->name );
 	if (substream->pcm->internal)
 		return 0;
 
@@ -623,6 +646,7 @@ static int sst_platform_open(struct snd_pcm_substream *substream)
 static int sst_platform_pcm_trigger(struct snd_pcm_substream *substream,
 					int cmd)
 {
+	//pr_info("%s- sst_platform_pcm_trigger ,snd_pcm_substream name %s, cmd %d\n",TAG, substream->name,cmd );
 	int ret_val = 0, str_id;
 	struct sst_runtime_stream *stream;
 	int status;
@@ -675,7 +699,7 @@ static snd_pcm_uframes_t sst_platform_pcm_pointer
 	int ret_val, status;
 	struct pcm_stream_info *str_info;
 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-
+	//pr_info("%s- sst_platform_pcm_pointer ,snd_pcm_substream name %s\n",TAG, substream->name );
 	stream = substream->runtime->private_data;
 	status = sst_get_stream_status(stream);
 	if (status == SST_PLATFORM_INIT)
@@ -702,7 +726,7 @@ static int sst_pcm_new(struct snd_soc_pcm_runtime *rtd)
 	struct snd_soc_dai *dai = rtd->cpu_dai;
 	struct snd_pcm *pcm = rtd->pcm;
 	int retval = 0;
-
+	//pr_info("%s- sst_pcm_new\n",TAG );
 	if (dai->driver->playback.channels_min ||
 			dai->driver->capture.channels_min) {
 		retval =  snd_pcm_lib_preallocate_pages_for_all(pcm,
@@ -720,7 +744,7 @@ static int sst_pcm_new(struct snd_soc_pcm_runtime *rtd)
 static int sst_soc_probe(struct snd_soc_platform *platform)
 {
 	struct sst_data *drv = dev_get_drvdata(platform->dev);
-
+	//pr_info("%s- sst_soc_probe \n",TAG );
 	drv->soc_card = platform->component.card;
 	return sst_dsp_init_v2_dpcm(platform);
 }
@@ -742,7 +766,7 @@ static int sst_platform_probe(struct platform_device *pdev)
 	struct sst_data *drv;
 	int ret;
 	struct sst_platform_data *pdata;
-
+	//pr_info("%s- sst_platform_probe \n",TAG );
 	drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_KERNEL);
 	if (drv == NULL) {
 		return -ENOMEM;
@@ -777,7 +801,7 @@ static int sst_platform_probe(struct platform_device *pdev)
 
 static int sst_platform_remove(struct platform_device *pdev)
 {
-
+	//pr_info("%s- sst_platform_remove \n",TAG );
 	snd_soc_unregister_component(&pdev->dev);
 	snd_soc_unregister_platform(&pdev->dev);
 	dev_dbg(&pdev->dev, "sst_platform_remove success\n");
@@ -790,7 +814,7 @@ static int sst_soc_prepare(struct device *dev)
 {
 	struct sst_data *drv = dev_get_drvdata(dev);
 	int i;
-
+	//pr_info("%s- sst_soc_prepare \n",TAG );
 	/* suspend all pcms first */
 	snd_soc_suspend(drv->soc_card->dev);
 	snd_soc_poweroff(drv->soc_card->dev);
@@ -812,7 +836,7 @@ static void sst_soc_complete(struct device *dev)
 {
 	struct sst_data *drv = dev_get_drvdata(dev);
 	int i;
-
+	//pr_info("%s- sst_soc_complete \n",TAG );
 	/* restart SSPs */
 	for (i = 0; i < drv->soc_card->num_rtd; i++) {
 		struct snd_soc_dai *dai = drv->soc_card->rtd[i].cpu_dai;
